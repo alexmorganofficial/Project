@@ -20,6 +20,6 @@ public class PartyGuest{
     
     @Override
     public String toString() {
-        return "Name: " + name + ", RSVP: " + rsvp;
+        return name;
     }
 }

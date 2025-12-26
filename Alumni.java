@@ -21,6 +21,6 @@ public class Alumni extends PartyGuest{
 
     @Override
     public String toString() {
-        return graduationYear + department;
+        return super.toString() +  " '" + graduationYear + " " + department;
     }
 }

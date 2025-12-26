@@ -1,75 +1,80 @@
-public class NewYearParty{
+public class NewYearParty {
     private PartyGuest[] guests;
     private int count;
     private int max;
 
-    public NewYearParty(int maxAttendees){
+    public NewYearParty(int maxAttendees) {
         guests = new PartyGuest[maxAttendees];
         count = 0;
         this.max = maxAttendees;
     }
-    
-    public void addGuest(PartyGuest guest){
-        if (count == guests.length){
-            System.out.println("unable to accomodate " +  guest.getName() + "attendees is " + max + ".");
-        }else{
-            guests[count] = guest;
-            count++;
-            System.out.println("Added " + guest.getName() + ", rsvp: " + guest.getRsvp() + "." );
+
+    public void addGuest(PartyGuest guest) {
+        if (count == guests.length) {
+            System.out.println("Unable to accommodate " + guest + ", max attendees is " + guests.length);
+            return;
         }
+        guests[count] = guest;
+        count++;
+        System.out.println("Added " + guest + ", rsvp: " + guest.getRsvp());
     }
-    
-    public void rsvp(String name, boolean rsvpStatus){
+
+    public void rsvp(String name, boolean rsvpStatus) {
         boolean found = false;
 
         for (int i = 0; i < count; i++) {
-           if (guests[i].getName().equals(name)){
-            guests[i].setRsvp(rsvpStatus);
-            System.out.println("Set RSVP to " + rsvpStatus + " for " + name + ".");
-            found = true;
-            break;
-           }
+            if (guests[i].getName().equals(name)) {
+                guests[i].setRsvp(rsvpStatus);
+                System.out.println("Set RSVP to " + rsvpStatus + " for " + name);
+                found = true;
+                break;
+            }
         }
-        
-        if(!found){
-            System.out.println(name + "not found.");
+
+        if (!found) {
+            System.out.println(name + " not found");
         }
     }
-    
-    
-    public void printGuests(boolean rsvpStatus){
-        if(count == 0){
+
+    public void printGuests(boolean rsvpStatus) {
+        if (count == 0) {
             System.out.println("NO ONE IN THE LIST");
             return;
         }
 
-        if(rsvpStatus){
+        if (rsvpStatus) {
             System.out.println("Guests who have RSVP: \n");
-        }else{
+        } else {
             System.out.println("Guests who do not have RSVP: \n");
         }
 
         for (int i = 0; i < count; i++) {
-            if (guests[i].getRsvp() == rsvpStatus){
+            if (guests[i].getRsvp() == rsvpStatus) {
                 System.out.println(guests[i]);
-            }    
+            }
         }
     }
 
     @Override
     public String toString() {
-        if (count == 0) {
-            return "NO ONE IN THE LIST";
+        StringBuilder yes = new StringBuilder();
+        StringBuilder no = new StringBuilder();
+
+        for (int i = 0; i < count; i++) {
+            if (guests[i].getRsvp()) {
+                yes.append("  ").append(guests[i]).append("\n");
+            } else {
+                no.append("  ").append(guests[i]).append("\n");
+            }
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("All Guests:\n");
-
-        for (int i = 0; i < count; i++) {
-            sb.append(guests[i]).append("\n");
-        }
+        sb.append("New Year's Eve Party attendees that have RSVP: \n");
+        sb.append(yes);
+        sb.append("\n");
+        sb.append("New Year's Eve Party attendees that have NOT RSVP: \n");
+        sb.append(no);
 
         return sb.toString();
     }
-
 }
